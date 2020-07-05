@@ -6,7 +6,6 @@ class Solution:
         2. left + 1: 收缩
         3. 使用字典记录当前窗口字符类型和数量，window need
         '''
-
         # 初始化need
         need = {}
         for ss in t:
