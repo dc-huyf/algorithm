@@ -4,8 +4,6 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
-
-from collections import deque
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         '''
