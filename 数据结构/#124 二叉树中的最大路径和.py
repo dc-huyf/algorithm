@@ -4,7 +4,6 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
-
 class Solution:
     def __init__(self):
         self.res = -float("inf")
