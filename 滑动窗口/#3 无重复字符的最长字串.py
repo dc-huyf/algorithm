@@ -8,7 +8,6 @@ class Solution:
         while right < len(s):
             c = s[right]
             window[c] = window.get(c, 0) + 1
-
             while window[c] >= 2: # 一重复就收缩,即便左边不是c,会一直收缩到c的数量为1为止
                 d = s[left]
                 left += 1

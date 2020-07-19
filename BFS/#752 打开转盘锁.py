@@ -12,7 +12,6 @@ class Solution:
         track.add('0000')
         record = deque([('0000')])
         step = 0
-
         while record:
             # 遍历当前队列
             lens = len(record)
@@ -29,21 +28,18 @@ class Solution:
                     if tmp not in track:
                         record.append(tmp)
                         track.add(tmp)
-
                     tmp = cur[:i] + self.jianone(cur[i]) + cur[i+1:]
                     if tmp not in track:
                         record.append(tmp)
                         track.add(tmp)
             step += 1
         return -1
-
     # 每次都要做选择，上或者下
     def plusone(self, s):
         if s == "9":
             return "0"
         else:
             return str(int(s) + 1)
-
     def jianone(self, s):
         if s == "0":
             return "9"

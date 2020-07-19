@@ -16,7 +16,6 @@ class Solution:
                 window[c] = window.get(c, 0) + 1
                 if window[c] == need[c]:
                     valid += 1
-
             while valid == len(need.keys()): # 出现能够符合条件的了
                 length = min(length, right - left + 1)
                 d = s2[left]

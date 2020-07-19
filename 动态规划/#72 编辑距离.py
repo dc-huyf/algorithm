@@ -2,9 +2,7 @@
 def minDistance(word1, word2):
     '''
     思路：
-    求解编辑距离？？NLP中蛮常见的场景
     三种操作：插入、删除、替换
-    形成自己的编辑逻辑
     '''
     if len(word1) == 0 or len(word2) == 0:
         return abs(len(word1) - len(word2))
@@ -20,8 +18,6 @@ def cal_times(s1, s2):
         return cal_times(s1[1:], s2[1:])
     else:
         return 1 + min(cal_times(s1[1:], s2[1:]), cal_times(s1, s2[1:]), cal_times(s1[1:], s2))
-
-
 
 # 想办法解决超时问题：使用动态规划
 def cal_times_dp(word1, word2):

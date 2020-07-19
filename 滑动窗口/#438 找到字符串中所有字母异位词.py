@@ -5,8 +5,6 @@ class Solution:
         s: "cbaebabacd" p: "abc"
         输出:
         [0, 6]
-        主要想法：
-        找包含abc的最短字串，若字串长度 = len(p)则合格，记一下start
         '''
         left, right = 0, 0
         result = []
