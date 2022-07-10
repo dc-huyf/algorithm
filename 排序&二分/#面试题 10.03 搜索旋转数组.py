@@ -5,7 +5,7 @@ class Solution:
         '''
         left, right = 0, 1
         record = []
-        while right < len(arr):
+        while right <= len(arr):
             if right < len(arr) - 1 and arr[right] >= arr[right - 1]:
                 right += 1
             else:
@@ -14,7 +14,7 @@ class Solution:
                         record.append(self.binary(arr, target, left, right-1))
                 left = right
                 right += 1
-        return sorted(record, key=lambda x:x[0])[0][1]
+        return sorted(record, key=lambda x:x[0])[0][1] if record else -1
 
     def binary(self, arr, target, left, right):
         l, r = left, right
@@ -30,6 +30,3 @@ class Solution:
             return [l - left, l]
         else:
             return False
-
-s = Solution()
-s.search(arr = [15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14], target = 5)
