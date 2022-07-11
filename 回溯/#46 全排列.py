@@ -36,9 +36,7 @@ class Solution:
     def backtrack(self, nums, track):
         # 触发结束条件
         if len(track) == len(nums):
-            print(track)
             self.res += [track]
-            print(self.res)
             return
         # 遍历每个选择
         for i in range(len(nums)):

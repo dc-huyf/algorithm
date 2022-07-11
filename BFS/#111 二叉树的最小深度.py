@@ -44,7 +44,7 @@ class Solution1:
                     record.append((depth+1, c))
         return minDepth
 
-# 广度优先搜索
+
 # 按照树的层去迭代，第一个访问到的叶子就是最小深度的节点，这样就不用遍历所有的节点了
 from collections import deque
 # 按照队列存储，先进去的节点先出

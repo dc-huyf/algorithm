@@ -20,7 +20,6 @@ class Solution:
                               max(dp(K, N-i), dp(K-1, i-1)) + 1) # 最坏情况下扔鸡蛋的次数
                 memo[(K, N)] = res
                 return res
-
         return dp(K, N)
 
 s = Solution()

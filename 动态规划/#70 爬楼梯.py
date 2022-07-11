@@ -20,4 +20,4 @@ class Solution:
         return b
 
 s = Solution()
-s.climbStairs2(10)
+s.climbStairs(10)
