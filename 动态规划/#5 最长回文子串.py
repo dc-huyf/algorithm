@@ -26,4 +26,5 @@ def longestPalindrome(s):
                             start, max_len = j, i - j + 1
     return s[start: start + max_len]
 
-longestPalindrome('aaaaa')
+if __name__ == "__main__":
+    print(longestPalindrome('aaabaaaabaa'))
