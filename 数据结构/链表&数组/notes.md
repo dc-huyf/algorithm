@@ -1,3 +1,4 @@
+# 链表数组
 
 ## 一、双指针的技巧
 > 处理数组和链表常常用到
@@ -64,3 +65,62 @@ for (int i = 1; i < nums.length; i++) {
     - 370题:区间加法
     - 1109题:航班预订统计
     - 1094题:拼车
+
+## 四、遍历数组技巧
+- 59：螺旋矩阵II
+
+
+## **五、二分查找**
+- 二分查找真正的坑在于到底要给 mid 加一还是减一，while 里到底用 <= 还是 <。
+- **704: 二分查找(唯一)**
+- **34: 在排序数组中查找元素的第一个和最后一个位置**
+
+```python
+class Solution:
+    def search(self, nums: [int], target: int) -> int:
+        s, e = 0, len(nums)-1
+        mid = (s+e)//2
+        while s <= e :
+            if nums[mid] == target:
+                return mid
+            if nums[mid] > target:
+                e = mid-1 # todo
+            if nums[mid] < target:
+                s = mid+1
+            mid = (s+e) // 2
+
+        return -1
+
+class Solution2:
+    def searchRange(self, nums: [int], target: int) -> [int]:
+        l, r = self.left_bound(nums, target), self.right_bound(nums, target)
+        return [l, r]
+
+    def left_bound(self, nums, target):
+        start, end = 0, len(nums)-1 # 在[start, end]内搜索
+        while start <= end: # start > end结束,注意保证能够结束循环
+            mid = (start + end) // 2
+            if nums[mid] == target:
+                end = mid - 1 # 搜索[start, mid-1]
+            if nums[mid] > target:
+                end = mid - 1 # 搜索[start, mid-1]
+            if nums[mid] < target:
+                start = mid + 1 # 搜索[mid+1, end]
+        if start >= len(nums):
+            return -1
+        return start if nums[start]==target else -1
+
+    def right_bound(self, nums, target):
+        start, end = 0, len(nums) - 1  # 在[start, end]内搜索
+        while start <= end:  # start > end结束,注意保证能够结束循环
+            mid = (start + end) // 2
+            if nums[mid] == target:
+                start = mid + 1  # 增大左边界，搜索[mid+1, end]
+            if nums[mid] > target:
+                end = mid - 1  # 搜索[start, mid-1]
+            if nums[mid] < target:
+                start = mid + 1  # 搜索[mid+1, end]
+        if start == 0:
+            return -1
+        return end if nums[end] == target else -1
+```
