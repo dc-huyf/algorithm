@@ -132,3 +132,29 @@ class Solution2:
 - 438:找到字符串中所有字母异位词
 - 567:字符串的排列
 - 3:无重复字符的最长子串
+
+## 七、递归：反转单链表
+- 206：反转链表
+- 反转前n个节点
+- 92:反转[M, N]之间的节点
+
+
+## 八、单调队列
+```python
+# 定义单调队列
+class MonotonicQueue:
+    def __init__(self):
+        self.maxq = []
+
+    def push(self, num):
+        while len(self.maxq) > 0 and self.maxq[-1] < num:
+            self.maxq.pop()
+        self.maxq.append(num)
+
+    def getMax(self):
+        return self.maxq[0]
+
+    def pop(self, n):
+        if n == self.maxq[0]:
+            self.maxq.pop(0)
+```
