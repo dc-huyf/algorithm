@@ -9,12 +9,11 @@
 最后不与dummy连通的'O'均改为'#'
 '''
 
-class Solution1:
+class SolutionDFS:
     def solve(self, board) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        ## DFS
         ## 先检查左右两列
         if board:
             for i in range(len(board)):
@@ -39,15 +38,11 @@ class Solution1:
     def DFS(self, board, row, col):
         board[row][col] = '#'
         steps = [[0, 1], [0, -1], [-1, 0], [1, 0]] # 定义上下左右四个方向
-        target = 0
         for step in steps:
             new_x, new_y = row + step[0], col + step[1]
             if new_x >= 0 and new_x <= len(board) - 1 and new_y >= 0 and new_y <= len(board[0]) - 1:
                 if board[new_x][new_y] == 'O':
-                    target = 1
                     self.DFS(board, new_x, new_y)
-        if target == 0:
-            return
 
 class DSU(object):
     def __init__(self, N):
@@ -83,7 +78,7 @@ class DSU(object):
     def count(self):
         return self.count
 
-class Solution2:
+class SolutionDSU:
     def solve(self, board) -> None:
         ## 特殊情形
         if not board:
@@ -123,19 +118,13 @@ class Solution2:
                 if not dsu.connect(dummy, i*n+j):
                     board[i][j] = 'X'
 
-s = Solution2()
-board = [
-    ["O","X","O","O","O","X"],
-    ["O","O","X","X","X","O"],
-    ["X","X","X","X","X","O"],
-    ["O","O","O","O","X","X"],
-    ["X","X","O","O","X","O"],
-    ["O","O","X","X","X","X"]]
-
-s.solve(board)
-
-
-
+if __name__ == "__main__":
+    s = SolutionDFS()
+    board = [["X","O","X"],
+             ["O","X","O"],
+             ["X","O","X"]]
+    res = s.solve(board)
+    print(res)
 
 
 
