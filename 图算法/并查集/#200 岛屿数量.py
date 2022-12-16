@@ -1,35 +1,41 @@
-'''
+"""
 深度优先搜索：DFS
 从某一个1开始，"探索"每个区域
-'''
-class Solution:
-    def numIslands(self, grid) -> int:
-        if not grid:
-            return 0
-        count = 0
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j] == '1':
-                    count += 1
-                    self.DFS(grid, i, j)
-        return count
-    def DFS(self, grid, x, y):
-        grid[x][y] = 'X'
-        m = len(grid)
-        n = len(grid[0])
-        steps = [[0, 1], [0, -1], [-1, 0], [1, 0]]
-        for step in steps:
-            new_x = x + step[0]
-            new_y = y + step[1]
-            if new_x >= 0 and new_x < m and new_y >= 0 and new_y < n:
-                if grid[new_x][new_y] == '1':
-                    self.DFS(grid, new_x, new_y)
+"""
+class SolutionDFS(object):
+    def __init__(self):
+        self.res = 0
+        self.grid = None
+        self.m = None
+        self.n = None
+        self.steps = [[-1, 0], [1, 0], [0, -1], [0, 1]]
 
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        self.grid = grid
+        self.m = len(grid)
+        self.n = len(grid[0])
+        self.res = 0
+        for i in range(self.m):
+            for j in range(self.n):
+                if self.grid[i][j] == "1":
+                    self.res += 1
+                    self.dfs(i, j)
+        return self.res
 
+    def dfs(self, x, y):
+        # 先把当前区域淹掉
+        self.grid[x][y] = "0"
+        for a, b in self.steps:
+            if x+a >= 0 and x+a < self.m and y+b >= 0 and y+b < self.n and self.grid[x+a][y+b] == "1":
+                self.dfs(x+a, y+b)
 
-'''
+"""
 并查集，找最后的连通区域数量 - '0'的数量
-'''
+"""
 class DSU(object):
     def __init__(self, N):
         self.par = list(range(N))
@@ -64,7 +70,7 @@ class DSU(object):
     def Count(self):
         return self.count
 
-class Solution1:
+class SolutionDSU:
     def numIslands(self, grid) -> int:
         if not grid:
             return 0
@@ -89,14 +95,15 @@ class Solution1:
         # print(dsu.Count())
         return dsu.Count() - zero_num
 
-s = Solution1()
-grid = [
-['1','1','1','1','0'],
-['1','1','0','1','0'],
-['1','1','0','0','1'],
-['0','0','0','1','0']
-]
-
-s.numIslands(grid)
+if __name__ == "__main__":
+    s = SolutionDSU()
+    grid = [
+    ['1','1','1','1','0'],
+    ['1','1','0','1','0'],
+    ['1','1','0','0','1'],
+    ['0','0','0','1','0']
+    ]
+    res = s.numIslands(grid)
+    print(res)
 
 
