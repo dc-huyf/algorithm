@@ -1,49 +1,46 @@
-from collections import deque
-class Solution:
-    def openLock(self, deadends, target: str) -> int:
-        '''
-        心路历程：
-        初始化：'0000'
-        每次转动前，都有一个备选方案集合：8个，相当于每个结点有8个相邻的节点
-        '''
-        # 回头路原则
-        track = set()
-        track.add('0000')
-        record = deque([('0000')])
-        step = 0
-        while record:
-            # 遍历当前队列
-            lens = len(record)
-            for q in range(lens):
-                cur = record.popleft()
-                if cur in deadends:
-                    continue
-                if cur == target:
-                    return step
-                # 加入当前节点的所有相邻节点
-                for i in range(len(cur)):
-                    # 两种选择
-                    tmp = cur[:i] + self.plusone(cur[i]) + cur[i+1:]
-                    if tmp not in track:
-                        record.append(tmp)
-                        track.add(tmp)
-                    tmp = cur[:i] + self.jianone(cur[i]) + cur[i+1:]
-                    if tmp not in track:
-                        record.append(tmp)
-                        track.add(tmp)
-            step += 1
-        return -1
-    # 每次都要做选择，上或者下
-    def plusone(self, s):
+from typing import List
+
+
+class SolutionBFS:
+    def __init__(self):
+        self.res = 0
+
+    def plus_str(self, s):
         if s == "9":
             return "0"
         else:
             return str(int(s) + 1)
-    def jianone(self, s):
+
+    def sub_str(self, s):
         if s == "0":
             return "9"
         else:
             return str(int(s) - 1)
 
-s = Solution()
-s.openLock(["0201","0101","0102","1212","2002"], "0202")
+    def openLock(self, deadends: List[str], target: str) -> int:
+        if "0000" == target: return 0
+        queue_list = ["0000"]
+        history = set("0000")
+        while len(queue_list) > 0:
+            lens = len(queue_list)
+            for i in range(lens):
+                curr = queue_list.pop(0)
+                if curr in deadends: continue
+                if curr == target: return self.res
+                for i in range(4):
+                    tmp_plus = curr[:i] + self.plus_str(curr[i]) + curr[i + 1:]
+                    tmp_sub = curr[:i] + self.sub_str(curr[i]) + curr[i + 1:]
+                    if tmp_plus not in history:
+                        queue_list.append(tmp_plus)
+                        history.add(tmp_plus)
+                    if tmp_sub not in history:
+                        queue_list.append(tmp_sub)
+                        history.add(tmp_sub)
+            self.res += 1
+        return -1
+
+
+if __name__ == "__main__":
+    s = SolutionBFS()
+    res = s.openLock(["0201", "0101", "0102", "1212", "2002"], "0202")
+    print(res)
