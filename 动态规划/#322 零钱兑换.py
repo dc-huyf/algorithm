@@ -1,24 +1,22 @@
+from typing import List
+
 class Solution:
-    def coinChange(self, coins, amount) -> int:
-        '''
-        背包问题：
-        dp[i] : 代表凑成i,所需要的最少硬币数量
-        dp[m] = min(dp[m - c] + 1, dp[m])
-        '''
-        if amount == 0:
-            return 0
-        dp = [float("inf") for _ in range(amount+1)]
-        for i in coins:
-            if i < amount + 1:
-                dp[i] = 1
-        for m in range(1, amount+1):
+    def __init__(self):
+        self.res = None
+
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0: return 0
+        self.res = [0] + [float("inf") for _ in range(amount)]
+        for num in range(1, amount+1):
             for c in coins:
-                if m - c >= min(coins) and dp[m-c] != float("inf"):
-                    dp[m] = min(dp[m - c] + 1, dp[m])
-        if dp[-1] != float("inf"):
-            return dp[-1]
-        else:
-            return -1
-s = Solution()
-s.coinChange([1], 2)
+                if num - c >= 0 and self.res[num-c] != float("inf"):
+                    self.res[num] = min(self.res[num], self.res[num-c]+1)
+        return self.res[-1] if self.res[-1] != float("inf") else -1
+
+
+if __name__ == "__main__":
+    s = Solution()
+    res = s.coinChange([2], 3)
+    print(res)
+
 
