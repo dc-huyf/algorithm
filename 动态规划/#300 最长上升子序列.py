@@ -1,16 +1,19 @@
-class Solution:
-    def lengthOfLIS(self, nums) -> int:
-        '''
-        #  dp[i] = max(dp[i], dp[j] + 1) dp[j]为nums[j]比nums[i]小的
-        '''
-        if len(nums) == 0:
-            return 0
-        dp = [1 for _ in range(len(nums))]
-        for i in range(1, len(nums)):
-            for j in range(i):
-                if nums[i] > nums[j]:
-                    dp[i] = max(dp[i], dp[j] + 1)
-        return max(dp)
+from typing import List
 
-s = Solution()
-s.lengthOfLIS([10,9,2,5,3,7,101,18])
+
+class Solution:
+    def __init__(self):
+        self.res = None
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        self.res = [1] * len(nums)
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    self.res[i] = max(self.res[i], 1+self.res[j])
+        return max(self.res)
+
+if __name__ == "__main__":
+    s = Solution()
+    res = s.lengthOfLIS([10,9,2,5,3,7,101,18])
+    print(res)
