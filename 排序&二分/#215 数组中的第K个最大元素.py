@@ -15,16 +15,19 @@ class Solution:
             nums[pre + 1] = curr
         return nums[-k]
 
+
 # 归并可以通过
 class Solution:
     def findKthLargest(self, nums, k):
         return self.main(nums)[-k]
+
     def main(self, nums):
         if len(nums) < 2:
             return nums
         left = nums[: len(nums) // 2]
-        right = nums[len(nums) // 2: ]
+        right = nums[len(nums) // 2:]
         return self.merge(self.main(left), self.main(right))
+
     def merge(self, left, right):
         res = []
         while left and right:
@@ -58,5 +61,34 @@ class Solution:
         else:
             return nums
 
-s = Solution()
-s.findKthLargest(nums = [3,2,3,1,2,4,5,5,6], k = 4)
+
+class Solution3:
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        # 快排的思路
+        if len(nums) == 1:
+            return nums[0]
+
+        middle = nums.pop()
+        left = []
+        right = []
+        for v in nums:
+            if v > middle:
+                right.append(v)
+            else:
+                left.append(v)
+        if len(right) == k - 1:
+            return middle
+        elif len(right) < k - 1:
+            return self.findKthLargest(left, k - len(right) - 1)
+        else:
+            return self.findKthLargest(right, k)
+
+
+s = Solution3()
+res = s.findKthLargest(nums=[3, 2, 3, 1, 2, 4, 5, 5, 6], k=4)
+print(res)

@@ -12,7 +12,7 @@ class Solution:
         return self.res
 
     def dfs(self, track):
-        ## 结束条件
+        # 结束条件
         if len(track) == len(self.nums):
             self.res.append(track[:])
             return
@@ -26,5 +26,6 @@ class Solution:
             track.remove(self.nums[idx])
 
 
-s = Solution()
-print(s.permute([1,2,3]))
+if __name__ == "__main__":
+    s = Solution()
+    print(s.permute([1, 2, 3]))
